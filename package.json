@@ -1,0 +1,34 @@
+{
+  "name": "poleposition",
+  "version": "1.0.0",
+  "description": "Under development: using TypeScript, Angular, and Node to setup a live timings page for Formula 1 sessions using the OpenF1 API.",
+  "main": "main.ts",
+  "scripts": {
+    "start": "npm run webpack",
+    "webpack": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JohnnyAsh11/PolePosition.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/JohnnyAsh11/PolePosition/issues"
+  },
+  "homepage": "https://github.com/JohnnyAsh11/PolePosition#readme",
+  "devDependencies": {
+    "webpack": "^5.111.0",
+    "webpack-cli": "^7.2.3",
+    "webpack-dev-server": "^6.0.0"
+  },
+  "dependencies": {
+    "@babel/core": "^8.0.5",
+    "@babel/preset-env": "^8.0.5",
+    "@babel/preset-typescript": "^8.0.1",
+    "babel-loader": "^10.1.1",
+    "typescript": "^7.0.2"
+  }
+}
