@@ -22,3 +22,7 @@ describe('App', () => {
     expect(compiled.querySelector('h1')?.textContent).toContain('Hello, PolePosition');
   });
 });
+
+describe('Pit Wall Dashboard', () => {
+  
+});
