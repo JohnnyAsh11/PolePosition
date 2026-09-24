@@ -1,10 +1,7 @@
 import { inject } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import * as Models from '../data_models/openf1.models'
-import { Observable, timeout } from 'rxjs';
-
-// TODO: REMOVE THIS.  For debugging.
-import { Console } from 'console';
+import { catchError, map, Observable, of, throwError, timeout } from 'rxjs';
 
 export class OpenF1Client {
     private readonly httpClient = inject(HttpClient);
@@ -17,7 +14,26 @@ export class OpenF1Client {
         var resp = this.httpClient.get<T[]>(uri, { params: new HttpParams({ fromObject: query }) })
 
         return resp.pipe(
-            timeout(rateLimit)
+            // Timeout according to the rate limit of the OpenF1 API.
+            timeout(rateLimit),
+
+            // Ensuring the response data it is valid.
+            map((data) => {
+                if (!Array.isArray(data)) {
+                    throw new Error("The API returned an unexpected response.");
+                }
+                return data;
+            }),
+
+            // Performing smooth error handling.
+            catchError((error) => {
+                if (error instanceof HttpErrorResponse &&
+                    error.status === 404 && 
+                    error.error?.detail === 'No results found.') {
+                    return of<T[]>([]);
+                }
+                return throwError(() => error);
+            })
         );
     }
 
